@@ -1,16 +1,16 @@
-import * as chokidar from 'chokidar';
-import { build, BuildOptions } from 'esbuild';
-import { promises as fs } from 'fs';
-import path from 'path';
+import * as chokidar from "chokidar";
+import { build, BuildOptions } from "esbuild";
+import { promises as fs } from "fs";
+import path from "path";
 
-type Browser = 'firefox' | 'chrome';
+type Browser = "firefox" | "chrome";
 
 const distDir = (targetBrowser: Browser) => {
   switch (targetBrowser) {
-    case 'firefox':
-      return 'dist-firefox';
-    case 'chrome':
-      return 'dist-chrome';
+    case "firefox":
+      return "dist-firefox";
+    case "chrome":
+      return "dist-chrome";
   }
 };
 
@@ -20,21 +20,21 @@ const distPath = (relPath: string, targetBrowser: Browser) =>
 const makeManifestFile = async (targetBrowser: Browser) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const baseManifestJson = JSON.parse(
-    await fs.readFile('manifest.json', 'utf8')
+    await fs.readFile("manifest.json", "utf8")
   );
-  if (targetBrowser === 'firefox') {
+  if (targetBrowser === "firefox") {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const firefoxJson = JSON.parse(await fs.readFile('firefox.json', 'utf8'));
+    const firefoxJson = JSON.parse(await fs.readFile("firefox.json", "utf8"));
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const manifestJson = { ...baseManifestJson, ...firefoxJson };
     await fs.writeFile(
-      distPath('manifest.json', targetBrowser),
+      distPath("manifest.json", targetBrowser),
       JSON.stringify(manifestJson, null, 1)
     );
   } else {
     await fs.copyFile(
-      'manifest.json',
-      distPath('manifest.json', targetBrowser)
+      "manifest.json",
+      distPath("manifest.json", targetBrowser)
     );
   }
 };
@@ -75,7 +75,7 @@ export class Builder {
     this.staticDirs.push(dir);
   }
 
-  watchOption(targetBrowser: Browser): BuildOptions['watch'] {
+  watchOption(targetBrowser: Browser): BuildOptions["watch"] {
     return this.watchFlag
       ? {
           onRebuild: (error, result) => {
@@ -96,7 +96,7 @@ export class Builder {
       recursive: true,
     });
     if (this.watchFlag) {
-      chokidar.watch(file).on('all', (event, path) => {
+      chokidar.watch(file).on("all", (event, path) => {
         console.log(event, path);
         void fs.copyFile(path, distPath(file, targetBrowser));
       });
@@ -109,7 +109,7 @@ export class Builder {
       recursive: true,
     });
     if (this.watchFlag) {
-      chokidar.watch(path.join(dir, '*')).on('all', (event, filepath) => {
+      chokidar.watch(path.join(dir, "*")).on("all", (event, filepath) => {
         console.log(event, filepath);
         void fs.copyFile(
           filepath,
@@ -124,8 +124,8 @@ export class Builder {
   makeManifestFileAndWatch(targetBrowser: Browser) {
     if (this.watchFlag) {
       chokidar
-        .watch(['manifest.json', 'firefox.json'])
-        .on('all', (event, path) => {
+        .watch(["manifest.json", "firefox.json"])
+        .on("all", (event, path) => {
           console.log(event, path);
           void makeManifestFile(targetBrowser);
         });
@@ -141,9 +141,9 @@ export class Builder {
         bundle: true,
         outdir: distPath(path.dirname(file), targetBrowser),
         watch: this.watchOption(targetBrowser),
-        sourcemap: this.devFlag ? 'inline' : false,
+        sourcemap: this.devFlag ? "inline" : false,
         define: {
-          'process.env.NODE_ENV': this.devFlag
+          "process.env.NODE_ENV": this.devFlag
             ? '"development"'
             : '"production"',
         },
@@ -160,11 +160,11 @@ export class Builder {
 
   build() {
     if (this.chromeFlag) {
-      const browser: Browser = 'chrome';
+      const browser: Browser = "chrome";
       this.buildForBrowser(browser);
     }
     if (this.firefoxFlag) {
-      const browser: Browser = 'firefox';
+      const browser: Browser = "firefox";
       this.buildForBrowser(browser);
     }
   }
