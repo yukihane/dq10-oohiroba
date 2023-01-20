@@ -1,6 +1,6 @@
 {
-  "name": "web-ext-react-template",
-  "version": "2.2.2",
+  "name": "dq10-oohiroba",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "ts-node -T build.ts --firefox --chrome",
