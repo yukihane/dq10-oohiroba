@@ -14,10 +14,10 @@
     },
     {
       "js": ["src/content/oo/oo.js"],
-      "matches": ["https://hiroba.dqx.jp/oo", "https://hiroba.dqx.jp/oo/*"]
+      "matches": ["https://hiroba.dqx.jp/oo", "https://hiroba.dqx.jp/oo/*"],
+      "run_at": "document_end"
     }
   ],
-  "permissions": ["tabs"],
   "browser_action": {
     "default_icon": {
       "16": "icons/icon-16.png",
