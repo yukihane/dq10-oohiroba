@@ -5,7 +5,7 @@ export const Main = () => {
   const [text, setText] = useState("");
 
   const handleClick = () => {
-    void searchItem("アモールの水");
+    void searchItem(text);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
