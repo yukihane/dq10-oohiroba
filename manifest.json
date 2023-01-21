@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "name",
-  "version": "1.0",
-  "description": "description",
+  "name": "dq10-oohiroba",
+  "version": "0.0.1",
+  "description": "ドラゴンクエストX 目覚めし冒険者の広場 非公式拡張",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png"
@@ -13,7 +13,7 @@
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png"
     },
-    "default_title": "default_title",
+    "default_title": "大広場",
     "default_popup": "popup/popup.html"
   }
 }
