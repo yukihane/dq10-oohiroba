@@ -1,26 +1,21 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { Popup } from "./Popup";
+import { Main } from "./Main";
 
-const removeAllChildNodes = (parent: Node) => {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
+const initialize = () => {
+  const removeAllChildNodes = (parent: Node) => {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+
+  const head = document.getElementsByTagName("head")[0];
+  removeAllChildNodes(head);
+  const body = document.getElementsByTagName("body")[0];
+  removeAllChildNodes(body);
+
+  const root = createRoot(body);
+  root.render(<Main />);
 };
 
-const html = document.getElementsByTagName("html")[0];
-removeAllChildNodes(html);
-
-const head = document.createElement("head");
-html.appendChild(head);
-
-const body = document.createElement("body");
-html.appendChild(body);
-
-const root = createRoot(body);
-root.render(<Popup />);
-
-// const container = document.getElementById("root");
-// // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-// const root = createRoot(container!);
-// root.render(<Popup />);
+initialize();

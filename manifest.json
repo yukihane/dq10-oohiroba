@@ -18,6 +18,7 @@
       "run_at": "document_end"
     }
   ],
+  "permissions": ["<all_urls>"],
   "browser_action": {
     "default_icon": {
       "16": "icons/icon-16.png",
