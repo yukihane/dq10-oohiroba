@@ -25,6 +25,24 @@ export const searchItem = async (name: string) => {
       return { id, name, category } as Item;
     });
 
+    const maxPageCount = getMaxPageCount(doc.documentElement);
+
+    console.log(`maxPageCount: ${maxPageCount}`);
     items.forEach((i) => console.log(i));
   }
+};
+
+/**
+ * 0始まりの最大ページ数を返します。
+ */
+const getMaxPageCount = (elm: Element): number => {
+  const pageLinks = elm.querySelectorAll<HTMLInputElement>(
+    ".pageNavi > ul > li > a"
+  );
+  if (pageLinks.length === 0) {
+    return 0;
+  }
+
+  const pages = [...pageLinks].map((link) => Number(link.dataset.pageno));
+  return Math.max(...pages);
 };
