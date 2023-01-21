@@ -1,0 +1,5 @@
+== これは何？
+
+https://hiroba.dqx.jp/sc/[目覚めし冒険者の広場－ドラゴンクエストⅩプレイヤー専用サイト] を拡張する Chrome extension/Firefox add-on です。
+
+当面はバザー検索関係の機能を考えています。
